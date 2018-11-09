@@ -21,15 +21,27 @@ Hpid.requestCredential = (options, credentialRequestCompleteCallback) => {
     const credentialToken = Random.secret();
 
     const scope = (options && options.requestPermissions) || ['user:email'];
-    const flatScope = scope.map(encodeURIComponent).join('+');
+    //const flatScope = scope.map(encodeURIComponent).join('+');
 
     const loginStyle = OAuth._loginStyle('hpid', config, options);
 
     //todo:update login URL request
+    //todo: build in mech to distinguish from staging and production services
+
+    // https://<HPID_HOST_NAME>/directory/v1/oauth/authorize
+    // ?response_type=code
+    // &client_id=<YOUR_CLIENT_ID>
+    // &redirect_uri=<YOUR_REDIRECT_URI>
+    // &scope=user.profile.read
+    // &state=<YOUR_STATE>;
+
+    const HPID_HOST_NAME = "directory.stg.cd.id.hp.com";
+
+
     const loginUrl =
-        'https://hp.com/login/oauth/authorize' +
+        'https://<HPID_HOST_NAME>/directory/v1/oauth/authorize' +
         `?client_id=${config.clientId}` +
-        `&scope=${flatScope}` +
+        `&scope=user.profile.read` +
         `&redirect_uri=${OAuth._redirectUri('hpid', config)}` +
         `&state=${OAuth._stateParam(loginStyle, credentialToken, options && options.redirectUrl)}`;
 
