@@ -1,6 +1,6 @@
 Package.describe({
   summary: 'HP ID OAuth flow',
-  version: '0.0.2',
+  version: '0.0.4',
 });
 
 Package.onUse((api) => {
