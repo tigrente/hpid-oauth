@@ -111,6 +111,10 @@ OAuth.registerService('hpid', 2, null, (query) => {
             accessToken: OAuth.sealSecret(accessToken),
             email: primaryEmail,
             username: identity.userName,
+            firstName: identity.name.givenName,
+            lastName: identity.name.familyName,
+            locale: identity.locale,
+            externalId: identity.externalId,
             emails,
         },
         options: {
