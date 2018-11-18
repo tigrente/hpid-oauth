@@ -112,7 +112,6 @@ OAuth.registerService('hpid', 2, null, (query) => {
             email: primaryEmail,
             username: identity.userName,
             emails,
-
         },
         options: {
             profile:
@@ -176,7 +175,7 @@ const getAccessToken = (query) => {
         throw new Error(`Failed to complete OAuth handshake with HP ID. ${response.data.error}`);
     } else {
         //todo: remove logging
-        console.log('Token: ' + response.data.access_token);
+        // console.log('Token: ' + response.data.access_token);
         return response.data.access_token;
     }
 };
@@ -198,7 +197,7 @@ const getIdentity = (accessToken) => {
 
         const idObject = JSON.parse(idString); //turn returned string into identity object
 
-        console.log('Identity: %o', idObject);
+        console.log('\n\n*** IDENTITY RETURNED FROM HP ID *** \n %o', idObject);
 
         return idObject;
 
