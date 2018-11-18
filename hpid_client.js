@@ -30,7 +30,7 @@ Hpid.requestCredential = (options, credentialRequestCompleteCallback) => {
         'https://directory.stg.cd.id.hp.com/directory/v1/oauth/authorize' +
         '?response_type=code' +
         `&client_id=${config.clientId}` +
-        `&redirect_uri=${encodeURIComponent(OAuth._redirectUri('hpid', config))}` + // todo: This doesn't work because HP ID requires a %5F instead of an '_', but the OAuth._redirect uri returns an _
+        `&redirect_uri=${encodeURIComponent(OAuth._redirectUri('hpid', config))}` +
         '&scope=user.profile.read' +
         `&state=${OAuth._stateParam(loginStyle, credentialToken, options && options.redirectUrl)}`;
 

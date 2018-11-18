@@ -140,13 +140,8 @@ const getAccessToken = (query) => {
     if (!config) {
         throw new ServiceConfiguration.ConfigError();
     }
-//todo:  cleanup logging
-    //console.log('We go here, no error.. Keep going.');
-    //console.log(`Secret: ${config.secret}`);
-    //console.log(`code: ${query.code}`);
 
     // Construct Authorization header and encode in base634
-
     const authcode = `${config.clientId}:${config.secret}`;
     const encodedAuthcode = Base64.encode(authcode);
 
@@ -178,7 +173,6 @@ const getAccessToken = (query) => {
     if (response.data.error) { // if the http response was a json object with an error attribute
         throw new Error(`Failed to complete OAuth handshake with HP ID. ${response.data.error}`);
     } else {
-        //todo: remove logging
         // console.log('Token: ' + response.data.access_token);
         return response.data.access_token;
     }
@@ -201,13 +195,13 @@ const getIdentity = (accessToken) => {
 
         const idObject = JSON.parse(idString); //turn returned string into identity object
 
-        console.log('\n\n*** IDENTITY RETURNED FROM HP ID *** \n %o', idObject);
+        //console.log('\n\n*** IDENTITY RETURNED FROM HP ID *** \n %o', idObject);
 
         return idObject;
 
     } catch (err) {
         throw Object.assign(
-            new Error(`Failed to fetch identity from HPID. ${err.message}`),
+            new Error(`Failed to fetch identity from HP ID. ${err.message}`),
             {response: err.response},
         );
     }
