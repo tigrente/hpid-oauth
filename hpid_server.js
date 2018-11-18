@@ -147,7 +147,7 @@ const getAccessToken = (query) => {
 
     let response;
     try {
-        // todo: update response for HP-ID
+        // todo: implement mechanism for staging vs. production
         response = HTTP.post('https://directory.stg.cd.id.hp.com/directory/v1/oauth/token', {
             headers: {
                 Accept: 'application/json',
