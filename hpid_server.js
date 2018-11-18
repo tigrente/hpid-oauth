@@ -41,10 +41,10 @@ let Base64 = {
             r = (o & 15) << 4 | u >> 2;
             i = (u & 3) << 6 | a;
             t = t + String.fromCharCode(n);
-            if (u != 64) {
+            if (u !== 64) {
                 t = t + String.fromCharCode(r)
             }
-            if (a != 64) {
+            if (a !== 64) {
                 t = t + String.fromCharCode(i)
             }
         }
@@ -89,7 +89,7 @@ let Base64 = {
         }
         return t
     }
-}
+};
 
 
 Hpid = {};
@@ -100,7 +100,7 @@ OAuth.registerService('hpid', 2, null, (query) => {
     const accessToken = getAccessToken(query);
     const identity = getIdentity(accessToken);
     const emails = identity.emails;
-    const primaryEmail = emails.find(email => email.primary);
+    const primaryEmail = emails.find(email => email.primary).value;
 
     return {
         // todo: update for HP-ID criteria
@@ -109,12 +109,21 @@ OAuth.registerService('hpid', 2, null, (query) => {
         serviceData: {
             id: identity.id,
             accessToken: OAuth.sealSecret(accessToken),
-            email: identity.email || (primaryEmail && primaryEmail.email) || '',
-            username: identity.username,
+            email: primaryEmail,
+            username: identity.userName,
             emails,
+
         },
-        options: {profile: {name: identity.name}},
-    };
+        // options: {
+        //     profile:
+        //         {
+        //             name: {
+        //                 last: identity.name.familyName,
+        //                 first: identity.name.givenName
+        //             }
+        //         }
+        // }
+    }
 });
 
 
@@ -173,7 +182,6 @@ const getAccessToken = (query) => {
 };
 
 
-
 const getIdentity = (accessToken) => {
     try {
         // console.log('Getting identity...');
@@ -188,7 +196,7 @@ const getIdentity = (accessToken) => {
             headers: {Authorization: `Bearer ${encodedToken}`},
         }).content;
 
-        const idObject = JSON.parse(idString);
+        const idObject = JSON.parse(idString); //turn returned string into identity object
 
         console.log('Identity: %o', idObject);
 
@@ -202,18 +210,6 @@ const getIdentity = (accessToken) => {
     }
 };
 
-
-/*// todo: update getEmotails for HP-ID
-const getEmails = (accessToken) => {
-    try {
-        return HTTP.get('https://api.hp.com/user/emails', {
-            headers: {'User-Agent': userAgent}, // http://developer.hp.com/v3/#user-agent-required
-            params: {access_token: accessToken},
-        }).data;
-    } catch (err) {
-        return [];
-    }
-};*/
 
 Hpid.retrieveCredential = (credentialToken, credentialSecret) =>
     OAuth.retrieveCredential(credentialToken, credentialSecret);
