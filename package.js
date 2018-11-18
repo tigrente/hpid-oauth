@@ -5,7 +5,7 @@ Package.describe({
     git: 'https://github.com/tigrente/hpid-oauth',
     documentation: 'README.md',
     summary: 'HP ID OAuth flow',
-    version: '0.1.0',
+    version: '0.12.1',
 });
 
 Package.onUse((api) => {
