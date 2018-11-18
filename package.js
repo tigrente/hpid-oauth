@@ -7,7 +7,7 @@ Package.describe({
 });
 
 Package.onUse((api) => {
-    api.use('ecmascript', ['client', 'server']);
+    api.use('ecmascript@0.1.2', ['client', 'server']);
     api.use('oauth2', ['client', 'server']);
     api.use('oauth', ['client', 'server']);
     api.use('http', 'server');
