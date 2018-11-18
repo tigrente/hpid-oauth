@@ -114,15 +114,15 @@ OAuth.registerService('hpid', 2, null, (query) => {
             emails,
 
         },
-        // options: {
-        //     profile:
-        //         {
-        //             name: {
-        //                 last: identity.name.familyName,
-        //                 first: identity.name.givenName
-        //             }
-        //         }
-        // }
+        options: {
+            profile:
+                {
+                    name: {
+                        last: identity.name.familyName,
+                        first: identity.name.givenName
+                    }
+                }
+        }
     }
 });
 
