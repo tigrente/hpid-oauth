@@ -1,9 +1,11 @@
+//todo: Add testing components
+
 Package.describe({
     name: 'tigrente:hpid-oauth',
     git: 'https://github.com/tigrente/hpid-oauth',
     documentation: 'README.md',
     summary: 'HP ID OAuth flow',
-    version: '0.12.0',
+    version: '0.1.0',
 });
 
 Package.onUse((api) => {
